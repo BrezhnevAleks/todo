@@ -1,0 +1,158 @@
+/*Обнуление*/
+* {
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+*,
+*:before,
+*:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+:focus,
+:active {
+  outline: none;
+}
+a:focus,
+a:active {
+  outline: none;
+}
+
+nav,
+footer,
+header,
+aside {
+  display: block;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  font-size: 100%;
+  line-height: 1;
+  font-size: 14px;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+input,
+button,
+textarea {
+  font-family: inherit;
+}
+
+input::-ms-clear {
+  display: none;
+}
+button {
+  cursor: pointer;
+}
+button::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+a,
+a:visited {
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: none;
+}
+ul li {
+  list-style: none;
+}
+img {
+  vertical-align: top;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: inherit;
+  font-weight: 400;
+}
+
+/*-----------------------------------------------------------------------------*/
+body {
+  font: 14px "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background: #f5f5f5;
+  color: #4d4d4d;
+}
+
+h1 {
+  position: absolute;
+  top: -155px;
+  width: 100%;
+  font-size: 100px;
+  font-weight: 100;
+  text-align: center;
+  color: rgba(175, 47, 47, 0.15);
+}
+.app {
+  display: flex;
+}
+.container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  background: #fff;
+  margin: 130px auto 40px auto;
+  position: relative;
+  max-width: 550px;
+}
+
+.active {
+  background: yellow;
+}
+
+.todo-list li .toggle {
+  text-align: center;
+  width: 40px;
+  height: auto;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto 0;
+  border: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+ul,
+li {
+}
+.new-todo {
+  padding: 16px 16px 16px 60px;
+  border: none;
+  font-size: 24px;
+  background: rgba(0, 0, 0, 0.003);
+  line-height: 1.2;
+}
+
+.todo-list {
+  font-size: 24px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 2;
+  border-top: 1px solid #e6e6e6;
+}
+form {
+  display: flex;
+  justify-content: center;
+}
+ul {
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-inline-start: 40px;
+}
+li {
+  border-bottom: 1px solid #e6e6e6;
+}
