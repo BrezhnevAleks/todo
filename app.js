@@ -46,35 +46,44 @@ class TodoApp extends React.Component {
   }
 }
 
-class TodoList extends React.Component {
+class LiItem extends React.Component {
   constructor(props) {
     super(props);
     this.state = { isChecked: false };
-
     this.handleDone = this.handleDone.bind(this);
   }
 
   render() {
     return (
+      <li
+        key={this.key}
+        text={this.text}
+        className={this.state.isChecked ? "complited" : "active"}
+      >
+        <input
+          type="checkbox"
+          checked={this.state.isChecked}
+          onClick={this.handleDone}
+        />
+        <label>{this.props.text}</label>
+      </li>
+    );
+  }
+
+  handleDone(e) {
+    this.setState((state) => ({ isChecked: !state.isChecked }));
+  }
+}
+
+class TodoList extends React.Component {
+  render() {
+    return (
       <ul>
         {this.props.items.map((item) => (
-          <li key={item.id} className={this.state.className}>
-            <input
-              type="checkbox"
-              checked={this.state.isChecked}
-              onClick={this.handleDone}
-              //className={this.state.className}
-            />
-            <label className={this.state.isChecked ? "complited" : "active"}>
-              {item.text}
-            </label>
-          </li>
+          <LiItem key={item.id} text={item.text} />
         ))}
       </ul>
     );
-  }
-  handleDone(e) {
-    this.setState((state) => ({ isChecked: !this.state.isChecked }));
   }
 }
 

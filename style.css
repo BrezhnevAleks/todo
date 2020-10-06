@@ -108,8 +108,33 @@ h1 {
   max-width: 550px;
 }
 
+.new-todo {
+  padding: 16px 16px 16px 60px;
+  border: none;
+  font-size: 24px;
+  background: rgba(0, 0, 0, 0.003);
+  line-height: 1.2;
+}
+
 .active {
   background: yellow;
+
+  line-height: 1.4em;
+  font-size: 24px;
+  padding: 15px 15px 15px 60px;
+  line-height: 1.2;
+}
+
+.complited {
+  background: green;
+  line-height: 1.4em;
+  font-size: 24px;
+  padding: 15px 15px 15px 60px;
+  line-height: 1.2;
+}
+
+.todo-list li label {
+  padding: 15px 15px 15px 60px;
 }
 
 .todo-list li .toggle {
@@ -120,19 +145,6 @@ h1 {
   top: 0;
   bottom: 0;
   margin: auto 0;
-  border: none;
-  -webkit-appearance: none;
-  appearance: none;
-}
-ul,
-li {
-}
-.new-todo {
-  padding: 16px 16px 16px 60px;
-  border: none;
-  font-size: 24px;
-  background: rgba(0, 0, 0, 0.003);
-  line-height: 1.2;
 }
 
 .todo-list {
