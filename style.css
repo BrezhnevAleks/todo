@@ -106,6 +106,7 @@ h1 {
   margin: 130px auto 40px auto;
   position: relative;
   max-width: 550px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
 }
 
 .new-todo {
@@ -132,9 +133,12 @@ h1 {
   padding: 15px 15px 15px 60px;
   line-height: 1.2;
 }
-
+.text {
+  margin-left: 20px;
+}
 .todo-list li label {
   padding: 15px 15px 15px 60px;
+  margin-right: 20px;
 }
 
 .todo-list li .toggle {

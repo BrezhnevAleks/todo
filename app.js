@@ -2,8 +2,6 @@ class TodoApp extends React.Component {
   constructor(props) {
     super(props);
     this.state = { items: [], text: "" };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   render() {
@@ -21,16 +19,16 @@ class TodoApp extends React.Component {
           />
         </form>
 
-        <TodoList items={this.state.items} />
+        <TodoList items={this.state.items} flagChange={this.handleFlag} />
       </div>
     );
   }
 
-  handleChange(e) {
+  handleChange = (e) => {
     this.setState({ text: e.target.value });
-  }
+  };
 
-  handleSubmit(e) {
+  handleSubmit = (e) => {
     e.preventDefault();
     if (this.state.text.length === 0) {
       return;
@@ -38,19 +36,57 @@ class TodoApp extends React.Component {
     const newItem = {
       text: this.state.text,
       id: Date.now(),
+      flag: true,
     };
     this.setState((state) => ({
       items: state.items.concat(newItem),
       text: "",
     }));
+  };
+
+  handleFlag = (e, index) => {
+    const { items } = this.state;
+
+    items[index].flag = !items[index].flag;
+    this.setState((state) => ({
+      items,
+    }));
+  };
+}
+
+class TodoList extends React.Component {
+  constructor(props) {
+    super(props);
+    this.value = this.props.items.filter((item) => item.flag).length;
+  }
+
+  render() {
+    return (
+      <ul>
+        {this.props.items.map((item, index) => (
+          <LiItem
+            flagChange={this.props.flagChange}
+            key={item.id}
+            text={item.text}
+            items={this.props.items}
+            index={index}
+          />
+        ))}
+        <span>
+          {this.props.items.filter((item) => item.flag).length}
+          {" item"}
+          {this.props.items.filter((item) => item.flag).length === 1
+            ? " left"
+            : "s left"}
+        </span>
+      </ul>
+    );
   }
 }
 
 class LiItem extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { isChecked: false };
-    this.handleDone = this.handleDone.bind(this);
   }
 
   render() {
@@ -58,31 +94,16 @@ class LiItem extends React.Component {
       <li
         key={this.key}
         text={this.text}
-        className={this.state.isChecked ? "complited" : "active"}
+        className={
+          !!this.props.items[this.props.index].flag ? "active" : "complited"
+        }
       >
         <input
           type="checkbox"
-          checked={this.state.isChecked}
-          onClick={this.handleDone}
+          onChange={(e) => this.props.flagChange(e, this.props.index)}
         />
-        <label>{this.props.text}</label>
+        <label className={"text"}>{this.props.text}</label>
       </li>
-    );
-  }
-
-  handleDone(e) {
-    this.setState((state) => ({ isChecked: !state.isChecked }));
-  }
-}
-
-class TodoList extends React.Component {
-  render() {
-    return (
-      <ul>
-        {this.props.items.map((item) => (
-          <LiItem key={item.id} text={item.text} />
-        ))}
-      </ul>
     );
   }
 }
