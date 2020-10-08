@@ -33,6 +33,7 @@ class TodoApp extends React.Component {
           handleNewText={this.handleNewText}
           handleNewChange={this.handleNewChange}
           handleNewBack={this.handleNewBack}
+          handleNewTextDeactive={this.handleNewTextDeactive}
         />
         <Footer
           items={this.state.items}
@@ -64,22 +65,29 @@ class TodoApp extends React.Component {
       items,
     }));
   };
-  handleNewBack = (e, index) => {
+  handleNewBack = (e) => {
     e.preventDefault();
     if (e.keyCode === 27) {
       let { items } = this.state;
 
-      items[index].formDisplay = !items[index].formDisplay;
+      items.forEach((item) => (item.formDisplay = false));
       this.setState((state) => ({ items }));
     }
-    return;
   };
+
   handleNewText = (e, index) => {
     e.preventDefault();
 
     let { items } = this.state;
 
     items[index].formDisplay = !items[index].formDisplay;
+    this.setState((state) => ({ items }));
+  };
+
+  handleNewTextDeactive = (e) => {
+    e.preventDefault();
+    let { items } = this.state;
+    items.forEach((item) => (item.formDisplay = false));
     this.setState((state) => ({ items }));
   };
 
@@ -169,7 +177,10 @@ class TodoList extends React.Component {
 
   render() {
     return (
-      <ul>
+      <ul
+
+      // onKeyDown={(e) => this.props.handleNewBack(e)}
+      >
         {this.props.items.map((item, index) => (
           <LiItem
             flagChange={this.props.flagChange}
@@ -184,6 +195,7 @@ class TodoList extends React.Component {
             handleNewChange={this.props.handleNewChange}
             handleNewSubmit={this.props.handleNewSubmit}
             handleNewBack={this.props.handleNewBack}
+            handleNewTextDeactive={this.props.handleNewTextDeactive}
           />
         ))}
       </ul>
@@ -207,7 +219,10 @@ class LiItem extends React.Component {
         }
         onDoubleClick={(e) => this.props.handleNewText(e, this.props.index)}
       >
-        <div className={"item"}>
+        <div
+          className={"item"}
+          onClick={(e) => this.props.handleNewTextDeactive(e)}
+        >
           <form>
             <input
               type="checkbox"
@@ -225,7 +240,10 @@ class LiItem extends React.Component {
           <input
             onSubmit={(e) => this.props.handleNewText(e, this.props.index)}
             onChange={(e) => this.props.handleNewChange(e, this.props.index)}
-            //onKeyDown={(e) => this.props.handleNewBack(e, this.props.index)}
+            onKeyDown={(e) => {
+              if (e.keyCode === 27)
+                this.props.handleNewText(e, this.props.index);
+            }}
             type="text"
             className={"change-item"}
             style={
