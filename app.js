@@ -1,6 +1,7 @@
 class TodoApp extends React.Component {
   constructor(props) {
     super(props);
+    this.refArray = [];
     this.state = {
       items: [],
       text: "",
@@ -12,19 +13,33 @@ class TodoApp extends React.Component {
 
   render() {
     return (
-      <div className="container">
+      <div
+        className="container"
+        style={
+          this.state.items.length
+            ? {
+                boxShadow:
+                  "0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1)",
+              }
+            : { boxShadow: "" }
+        }
+      >
         <h1>todos</h1>
 
         <form onSubmit={this.handleSubmit}>
           <div
             className="choose-all"
             onClick={this.handleChangeAll}
-            style={
-              this.state.items.length ? { opacity: "1" } : { opacity: "0" }
-            }
             style={this.state.allin ? { color: "" } : { color: "#737373" }}
           >
-            <span className="marker">❯</span>
+            <span
+              style={
+                this.state.items.length ? { color: "" } : { color: "white" }
+              }
+              className="marker"
+            >
+              ❯
+            </span>
           </div>
           <input
             placeholder="What needs to be done?"
@@ -44,6 +59,8 @@ class TodoApp extends React.Component {
           handleNewText={this.handleNewText}
           handleNewChange={this.handleNewChange}
           handleNewTextDeactive={this.handleNewTextDeactive}
+          handleNewBlur={this.handleNewBlur}
+          refArray={this.refArray}
         />
         <Footer
           showSwitch={this.state.showSwitch}
@@ -79,12 +96,20 @@ class TodoApp extends React.Component {
 
   handleNewText = (e, index) => {
     e.preventDefault();
+    console.log("KEK >>>", this.refArray);
 
     let { items } = this.state;
-    items.forEach((item) => (item.formDisplay = false));
-    this.setState((state) => ({ items }));
-    items[index].formDisplay = !items[index].formDisplay;
-    this.setState((state) => ({ items }));
+    if (e.keyCode === 27) {
+      items[index].formDisplay = !items[index].formDisplay;
+    } else {
+      items.forEach((item) => (item.formDisplay = false));
+
+      items[index].formDisplay = !items[index].formDisplay;
+    }
+    this.setState(
+      (state) => ({ items }),
+      () => this.refArray[index].focus()
+    );
   };
 
   handleNewTextDeactive = (e) => {
@@ -96,6 +121,12 @@ class TodoApp extends React.Component {
         : (item.formDisplay = item.formDisplay)
     );
     this.setState((state) => ({ items }));
+  };
+
+  handleNewBlur = (e, index) => {
+    let { items } = this.state;
+    items[index].formText = items[index].text;
+    this.setState({ index });
   };
 
   handleSubmit = (e) => {
@@ -135,16 +166,18 @@ class TodoApp extends React.Component {
   handleChangeAll = (e) => {
     const { items } = this.state;
     let { allin } = this.state;
-    items.forEach((item) => {
-      item.flag = !allin;
-    });
-    allin = !allin;
-    this.setState((state) => ({
-      items,
-    }));
-    this.setState((state) => ({
-      allin,
-    }));
+    if (items.length) {
+      items.forEach((item) => {
+        item.flag = !allin;
+      });
+      allin = !allin;
+      this.setState((state) => ({
+        items,
+      }));
+      this.setState((state) => ({
+        allin,
+      }));
+    }
   };
 
   handleShow = (e, key) => {
@@ -217,6 +250,8 @@ class TodoList extends React.Component {
             handleNewChange={this.props.handleNewChange}
             handleNewSubmit={this.props.handleNewSubmit}
             handleNewTextDeactive={this.props.handleNewTextDeactive}
+            handleNewBlur={this.props.handleNewBlur}
+            refArray={this.props.refArray}
           />
         ))}
       </ul>
@@ -242,46 +277,52 @@ class LiItem extends React.Component {
         <input
           className="checkbox"
           type="checkbox"
+          style={
+            !this.props.items[this.props.index].formDisplay
+              ? { display: "" }
+              : { display: "none" }
+          }
           checked={!this.props.items[this.props.index].flag}
           onChange={(e) => this.props.flagChange(e, this.props.index)}
         />
         <div
-          className={"item"}
+          className="item"
           onDoubleClick={(e) => this.props.handleNewText(e, this.props.index)}
           onClick={(e) => this.props.handleNewTextDeactive(e)}
         >
           <form>
-            <label className={"text"}>{this.props.text}</label>
+            <label className="text">{this.props.text}</label>
           </form>
           <button
             onClick={(e) => this.props.deleteElement(e, this.props.index)}
             className="destroy"
           ></button>
         </div>
-        <form
-          onSubmit={(e) => this.props.handleNewSubmit(e, this.props.index)}
-          onKeyDown={(e) => {
-            if (e.keyCode === 27) this.props.handleNewText(e, this.props.index);
-          }}
-        >
-          <input
-            onSubmit={(e) => this.props.handleNewText(e, this.props.index)}
-            onChange={(e) => this.props.handleNewChange(e, this.props.index)}
+
+        <div className="change-item">
+          <form
+            onSubmit={(e) => this.props.handleNewSubmit(e, this.props.index)}
             onKeyDown={(e) => {
               if (e.keyCode === 27)
                 this.props.handleNewText(e, this.props.index);
             }}
-            type="text"
-            className={"change-item"}
             style={
               this.props.items[this.props.index].formDisplay
                 ? { display: "block" }
                 : { display: "none" }
             }
-            autoFocus={this.props.items[this.props.index].formDisplay}
-            value={this.props.items[this.props.index].formText}
-          />
-        </form>
+          >
+            <input
+              onSubmit={(e) => this.props.handleNewText(e, this.props.index)}
+              onChange={(e) => this.props.handleNewChange(e, this.props.index)}
+              onBlur={(e) => this.props.handleNewBlur(e, this.props.index)}
+              type="text"
+              value={this.props.items[this.props.index].formText}
+              style={{ display: "block" }}
+              ref={(ref) => (this.props.refArray[this.props.index] = ref)}
+            />
+          </form>
+        </div>
       </li>
     );
   }

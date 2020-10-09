@@ -88,7 +88,7 @@ body {
 
 h1 {
   position: absolute;
-  top: -155px;
+  top: -125px;
   width: 100%;
   font-size: 100px;
   font-weight: 100;
@@ -102,16 +102,18 @@ h1 {
   display: flex;
   justify-content: center;
   flex-direction: column;
-  width: 100%;
   background: #fff;
   margin: 130px auto 40px auto;
   position: relative;
   max-width: 550px;
+  min-width: 320px;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
 }
-
+.container form {
+  display: flex;
+}
 .new-todo {
-  padding: 16px 16px 16px 30px;
+  padding: 16px 0 16px 0;
   border: none;
   display: flex;
   font-size: 24px;
@@ -126,13 +128,13 @@ h1 {
 .choose-all {
   font-size: 22px;
 
-  width: 30px;
   background: white;
   color: #e0e0e0;
   display: flex;
   align-items: center;
   justify-content: flex-end;
   user-select: none;
+  padding: 20px;
 }
 .marker {
   transform: rotate(90deg);
@@ -168,34 +170,9 @@ h1 {
   justify-self: flex-start;
   padding: auto;
 }
-.todo-list li label {
-  padding: 15px 15px 15px 60px;
-  margin-right: 20px;
-}
-
-.todo-list li .toggle {
-  text-align: center;
-  width: 40px;
-  height: auto;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  margin: auto 0;
-}
-
-.todo-list {
-  font-size: 24px;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  z-index: 2;
-  border-top: 1px solid #e6e6e6;
-}
-form {
-  display: flex;
-}
 
 li {
+  display: block;
   border-bottom: 1px solid #e6e6e6;
   position: relative;
 }
@@ -204,9 +181,10 @@ input[type="checkbox"] {
   position: relative;
   appearance: none;
   display: block;
-  content: "x";
+
   height: 30px;
-  width: 32px;
+  width: 30px;
+
   color: black;
   background-color: white;
   border-radius: 50%;
@@ -226,7 +204,7 @@ input[type="checkbox"]:checked:after {
   border-color: #777777;
 }
 
-.change-item {
+.change-item input {
   position: absolute;
   top: 0;
   left: 0;
@@ -267,7 +245,7 @@ input[type="checkbox"]:checked:after {
 }
 .item {
   height: 40px;
-  width: 100%;
+  width: 90%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -276,6 +254,9 @@ input[type="checkbox"]:checked:after {
 .footer {
   display: flex;
   justify-content: space-evenly;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2), 0 8px 0 -3px #f6f6f6,
+    0 9px 1px -3px rgba(0, 0, 0, 0.2), 0 16px 0 -6px #f6f6f6,
+    0 17px 2px -6px rgba(0, 0, 0, 0.2);
 }
 .footer button {
   color: #777777;
@@ -289,4 +270,21 @@ input[type="checkbox"]:checked:after {
 .active-button {
   border: 1px solid;
   border-color: rgba(175, 47, 47, 0.2);
+}
+
+@media (max-width: 430px) {
+  .footer {
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+  .footer .footer-menu {
+    display: flex;
+    order: 1;
+    width: 100%;
+    justify-content: center;
+    margin-top: 10px;
+  }
+  .new-todo {
+    width: 254px;
+  }
 }
