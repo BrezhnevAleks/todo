@@ -2,6 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 import TodoList from "./todolist";
 import Footer from "./footer";
+import { addTodo } from "../actions/index";
+import AddTodo from "../containers/addtodo";
 
 class TodoApp extends React.Component {
   constructor(props) {
@@ -10,76 +12,12 @@ class TodoApp extends React.Component {
     this.state = {
       items: [],
       text: "",
+
       allin: true,
       elementDisplay: true,
       showSwitch: 1,
     };
   }
-
-  render() {
-    return (
-      <div
-        className="container"
-        style={
-          this.state.items.length
-            ? {
-                boxShadow:
-                  "0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1)",
-              }
-            : { boxShadow: "" }
-        }
-      >
-        <h1>todos</h1>
-
-        <form onSubmit={this.handleSubmit}>
-          <div
-            className="choose-all"
-            onClick={this.handleChangeAll}
-            style={this.state.allin ? { color: "" } : { color: "#737373" }}
-          >
-            <span
-              style={
-                this.state.items.length ? { color: "" } : { color: "white" }
-              }
-              className="marker"
-            >
-              ❯
-            </span>
-          </div>
-          <input
-            placeholder="What needs to be done?"
-            id="new-todo"
-            className="new-todo"
-            onChange={this.handleChange}
-            value={this.state.text}
-          />
-        </form>
-
-        <TodoList
-          changeDisplay={this.state.changeDisplay}
-          items={this.state.items}
-          flagChange={this.handleFlag}
-          deleteElement={this.handleDelete}
-          handleNewSubmit={this.handleNewSubmit}
-          handleNewText={this.handleNewText}
-          handleNewChange={this.handleNewChange}
-          handleNewTextDeactive={this.handleNewTextDeactive}
-          handleNewBlur={this.handleNewBlur}
-          refArray={this.refArray}
-        />
-        <Footer
-          showSwitch={this.state.showSwitch}
-          items={this.state.items}
-          handleShow={this.handleShow}
-          handleComplited={this.handleComplited}
-        />
-      </div>
-    );
-  }
-
-  handleChange = (e) => {
-    this.setState({ text: e.target.value });
-  };
 
   handleNewChange = (e, index) => {
     e.preventDefault();
@@ -132,25 +70,6 @@ class TodoApp extends React.Component {
     let { items } = this.state;
     items[index].formText = items[index].text;
     this.setState({ index });
-  };
-
-  handleSubmit = (e) => {
-    e.preventDefault();
-    if (this.state.text.length === 0) {
-      return;
-    }
-    const newItem = {
-      text: this.state.text,
-      id: Date.now(),
-      flag: true,
-      display: "flex",
-      formDisplay: false,
-      formText: this.state.text,
-    };
-    this.setState((state) => ({
-      items: state.items.concat(newItem),
-      text: "",
-    }));
   };
 
   handleFlag = (e, index) => {
@@ -228,8 +147,52 @@ class TodoApp extends React.Component {
       items,
     }));
   };
+
+  render() {
+    return (
+      <div
+        className="container"
+        style={
+          this.state.items.length
+            ? {
+                boxShadow:
+                  "0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1)",
+              }
+            : { boxShadow: "" }
+        }
+      >
+        <h1>todos</h1>
+
+        <AddTodo
+          allin={this.state.allin}
+          // items={this.state.items}
+          handleChangeAll={this.handleChangeAll}
+          text={this.state.text}
+        />
+
+        <TodoList
+          changeDisplay={this.state.changeDisplay}
+          items={this.state.items}
+          flagChange={this.handleFlag}
+          deleteElement={this.handleDelete}
+          handleNewSubmit={this.handleNewSubmit}
+          handleNewText={this.handleNewText}
+          handleNewChange={this.handleNewChange}
+          handleNewTextDeactive={this.handleNewTextDeactive}
+          handleNewBlur={this.handleNewBlur}
+          refArray={this.refArray}
+        />
+        <Footer
+          showSwitch={this.state.showSwitch}
+          items={this.state.items}
+          handleShow={this.handleShow}
+          handleComplited={this.handleComplited}
+        />
+      </div>
+    );
+  }
 }
 
-ReactDOM.render(<TodoApp />, document.getElementById("root"));
+//ReactDOM.render(<TodoApp />, document.getElementById("root"));
 
 export default TodoApp;
