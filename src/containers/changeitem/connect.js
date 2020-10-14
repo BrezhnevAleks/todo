@@ -1,13 +1,13 @@
 import { connect } from "react-redux";
-import todos from "../../reducers/todos";
+import todos from "../../reducers";
 import * as todoActions from "../../actions";
 
-const mapStateToProps = ({ todos }) => ({
+const mapStateToProps = (todos) => ({
   items: todos.items,
 });
-
 const mapDispatchToProps = {
   ...todoActions,
 };
+
 export default (container) =>
   connect(mapStateToProps, mapDispatchToProps)(container);

@@ -1,9 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import TodoList from "../containers/todolist/todolist";
-import Footer from "../containers/footer/footer";
-import { addTodo } from "../actions/index";
-import AddTodo from "../containers/addtodo/addtodo";
+import TodoList from "../../containers/todolist/todolist";
+import Footer from "../../containers/footer/footer";
+import { addTodo } from "../../actions/index";
+import AddTodo from "../../containers/addtodo/addtodo";
+import "./style.css";
 
 class TodoApp extends React.Component {
   constructor(props) {
@@ -20,9 +21,7 @@ class TodoApp extends React.Component {
         }}
       >
         <h1>todos</h1>
-
         <AddTodo />
-
         <TodoList />
         <Footer />
       </div>

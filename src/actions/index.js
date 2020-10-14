@@ -1,4 +1,3 @@
-//let nextTodoId = 0;
 export const addTodo = (text) => ({
   type: "ADD_TODO",
   id: Date.now(),
@@ -28,11 +27,13 @@ export const pickNewChange = (id) => ({
   type: "PICK_CHANGE_TODO",
   id: id,
 });
+
 export const createNewChange = (id, text) => ({
   type: "CHANGE_TODO",
   id: id,
   text,
 });
+
 export const deactivateNewChange = () => ({
   type: "CHANGE_DEACTIVE",
 });
@@ -42,8 +43,3 @@ export const deleteCompleted = () => ({
 });
 
 export const changeFilter = (id) => ({ type: "CHANGE_FILTER", id: id });
-export const VisibilityFilters = {
-  SHOW_ALL: "SHOW_ALL",
-  SHOW_COMPLETED: "SHOW_COMPLETED",
-  SHOW_ACTIVE: "SHOW_ACTIVE",
-};

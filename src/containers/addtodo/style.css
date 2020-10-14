@@ -1,0 +1,33 @@
+.new-todo {
+  padding: 16px 0 16px 0;
+  border: none;
+  display: flex;
+  font-size: 24px;
+  background: rgba(0, 0, 0, 0.003);
+  line-height: 1.2;
+}
+.new-todo::placeholder {
+  font-style: italic;
+  color: #e0e0e0;
+}
+
+.choose-all {
+  font-size: 22px;
+
+  background: white;
+  color: #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  user-select: none;
+  padding: 20px;
+}
+.marker {
+  transform: rotate(90deg);
+}
+
+@media (max-width: 430px) {
+  .new-todo {
+    width: 254px;
+  }
+}

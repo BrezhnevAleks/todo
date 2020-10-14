@@ -1,12 +1,14 @@
 import React from "react";
 import connect from "./connect";
-import LiItem from "../../components/liitem.js";
+import LiItem from "../../components/liitem/liitem.js";
+import "./style.css";
 
 class TodoList extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
   handleFlag = (e, index) => {
-    console.log(this.props.index);
-    console.log(this.props);
-    console.log(this.props.toggleTodo);
     this.props.toggleTodo(index);
   };
 
@@ -20,55 +22,36 @@ class TodoList extends React.Component {
     this.props.deleteTodo(index);
   };
 
-  handleNewText = (e, index) => {
-    e.preventDefault();
-    console.log("KEK >>>", this.refArray);
-
-    let { items } = this.state;
-    if (e.keyCode === 27) {
-      items[index].formDisplay = !items[index].formDisplay;
-    } else {
-      items.forEach((item) => (item.formDisplay = false));
-
-      items[index].formDisplay = !items[index].formDisplay;
-    }
-    this.setState(
-      (state) => ({ items }),
-      () => this.refArray[index].focus()
-    );
-  };
-
   handleNewDeactivate = (e) => {
     e.preventDefault();
     this.props.deactivateNewChange();
   };
 
   filterChange = () => {
-    switch (this.props.showFilter) {
+    let { showFilter, items } = this.props;
+
+    switch (showFilter) {
       case 1:
-        return this.props.items;
+        return items;
       case 2:
-        return this.props.items.filter((item) => !item.flag);
+        return items.filter((item) => !item.flag);
       case 3:
-        return this.props.items.filter((item) => item.flag);
+        return items.filter((item) => item.flag);
     }
   };
 
   render() {
     let list = this.filterChange();
-
     return (
       <ul>
-        {list.map((item, index) => (
+        {list.map((item) => (
           <LiItem
             handleNewDeactivate={this.handleNewDeactivate}
             handleFlag={this.handleFlag}
             handleDelete={this.handleDelete}
             handleNewPick={this.handleNewPick}
             key={item.id}
-            text={item.text}
             item={item}
-            index={item.id}
             allin={this.props.allin}
           />
         ))}

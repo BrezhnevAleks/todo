@@ -1,0 +1,81 @@
+.current-task {
+  position: relative;
+  display: flex;
+  padding: 15px 15px 15px 20px;
+  justify-content: center;
+  align-items: center;
+  line-height: 1.4em;
+  font-size: 24px;
+  line-height: 1.2;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.complited label {
+  text-decoration: line-through;
+  color: #e6e6e6;
+}
+
+.text {
+  display: block;
+  margin-left: 20px;
+  justify-self: flex-start;
+  padding: auto;
+}
+
+.checkbox {
+  position: relative;
+  appearance: none;
+  display: block;
+
+  height: 30px;
+  width: 30px;
+
+  color: black;
+  background-color: white;
+  border-radius: 50%;
+  border: 1px solid #e6e6e6;
+  text-decoration: none;
+}
+.checkbox:checked:after {
+  content: "✓";
+  color: green;
+  font-size: 30px;
+  text-align: center;
+  position: absolute;
+  top: -3px;
+  left: 3px;
+  border-color: #777777;
+}
+
+.item {
+  height: 40px;
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.item:hover > .destroy {
+  display: block;
+}
+.item form {
+  display: flex;
+  align-items: center;
+}
+
+.destroy {
+  justify-self: end;
+  display: none;
+  background-color: white;
+  width: 40px;
+  height: 40px;
+  margin: 0;
+  font-size: 30px;
+  color: #cc9a9a;
+  transition: color 0.2s ease-out;
+}
+.destroy:hover {
+  color: #af5b5e;
+}
+.destroy::after {
+  content: "×";
+}

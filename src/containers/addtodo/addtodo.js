@@ -1,6 +1,7 @@
 import React from "react";
 import connect from "./connect";
-import { addTodo } from "../../actions/index";
+import addTodo from "../../actions/index";
+import "./style.css";
 
 class AddTodo extends React.Component {
   constructor(props) {
@@ -17,7 +18,8 @@ class AddTodo extends React.Component {
     if (this.state.text.length === 0) {
       return;
     }
-    this.props.addTodo(this.state.text);
+    let { text } = this.state;
+    this.props.addTodo(text);
     this.setState({ text: "" });
   };
 
@@ -25,18 +27,20 @@ class AddTodo extends React.Component {
     e.preventDefault();
     this.props.toggleAll();
   };
+
   render() {
-    console.log("PROPS >>>>>", this.props);
+    const { allin, items } = this.props;
+    const { text } = this.state;
 
     return (
       <form onSubmit={(e) => this.handleSubmit(e)}>
         <div
           className="choose-all"
           onClick={this.handleChangeAll}
-          style={this.props.allin ? { color: "#737373" } : { color: "" }}
+          style={allin ? { color: "#737373" } : { color: "" }}
         >
           <span
-            style={this.props.items.length ? { color: "" } : { color: "white" }}
+            style={items.length ? { color: "" } : { color: "white" }}
             className="marker"
           >
             ❯
@@ -47,10 +51,11 @@ class AddTodo extends React.Component {
           id="new-todo"
           className="new-todo"
           onChange={(e) => this.handleChange(e)}
-          value={this.state.text}
+          value={text}
         />
       </form>
     );
   }
 }
+
 export default connect(AddTodo);

@@ -1,5 +1,6 @@
 import React from "react";
 import connect from "./connect";
+import "./style.css";
 
 class ChangeItem extends React.Component {
   constructor(props) {
@@ -15,27 +16,31 @@ class ChangeItem extends React.Component {
   };
 
   handleNewSubmit = (e, index) => {
-    console.log("SUBMIT >>>>");
     e.preventDefault();
-    this.props.createNewChange(index, this.state.text);
+    const { text } = this.state;
+    this.props.createNewChange(index, text);
     this.props.pickNewChange(index);
   };
 
   handleNewBlur = (e) => {
     e.preventDefault();
-    this.setState({ text: this.props.item.text });
+    const { item } = this.props;
+    this.setState({ text: item.text });
   };
 
   render() {
-    if (this.props.item.formDisplay) {
+    const { item } = this.props;
+    const { text } = this.state;
+
+    if (item.formDisplay) {
       return (
         <div className="change-item">
           <form
-            onSubmit={(e) => this.handleNewSubmit(e, this.props.index)}
+            onSubmit={(e) => this.handleNewSubmit(e, item.id)}
             onKeyDown={(e) => {
               if (e.keyCode === 27) {
-                this.props.handleNewPick(e, this.props.index);
-                this.setState({ text: this.props.item.text });
+                this.props.handleNewPick(e, item.id);
+                this.setState({ text: item.text });
               }
             }}
           >
@@ -43,7 +48,7 @@ class ChangeItem extends React.Component {
               onChange={(e) => this.handleNewChange(e)}
               onBlur={(e) => this.handleNewBlur(e)}
               type="text"
-              value={this.state.text}
+              value={text}
               autoFocus={true}
             />
           </form>
@@ -53,4 +58,5 @@ class ChangeItem extends React.Component {
     return null;
   }
 }
+
 export default connect(ChangeItem);
