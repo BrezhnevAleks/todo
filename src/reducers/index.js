@@ -1,7 +1,4 @@
-export const todos = (
-  state = { showFilter: 1, allin: false, items: [] },
-  action
-) => {
+const todos = (state = { showFilter: 1, allin: false, items: [] }, action) => {
   switch (action.type) {
     case "ADD_TODO":
       return {
@@ -82,3 +79,5 @@ export const todos = (
       return state;
   }
 };
+
+export default todos;

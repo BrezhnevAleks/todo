@@ -1,6 +1,5 @@
 import React from "react";
 import connect from "./connect";
-import addTodo from "../../actions/index";
 import "./style.css";
 
 class AddTodo extends React.Component {

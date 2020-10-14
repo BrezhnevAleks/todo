@@ -1,8 +1,6 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import TodoList from "../../containers/todolist/todolist";
 import Footer from "../../containers/footer/footer";
-import { addTodo } from "../../actions/index";
 import AddTodo from "../../containers/addtodo/addtodo";
 import "./style.css";
 

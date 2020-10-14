@@ -1,5 +1,4 @@
 import React from "react";
-import { toggleTodo } from "../../actions/index";
 import ChangeItem from "../../containers/changeitem/changeitem";
 import "./style.css";
 

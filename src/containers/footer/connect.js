@@ -1,5 +1,4 @@
 import { connect } from "react-redux";
-import todos from "../../reducers";
 import * as todoActions from "../../actions";
 
 const mapStateToProps = (todos) => ({
