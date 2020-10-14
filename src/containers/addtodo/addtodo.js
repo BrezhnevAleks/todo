@@ -1,6 +1,6 @@
 import React from "react";
 import connect from "./connect";
-import { addTodo } from "../actions";
+import { addTodo } from "../../actions/index";
 
 class AddTodo extends React.Component {
   constructor(props) {
@@ -17,21 +17,26 @@ class AddTodo extends React.Component {
     if (this.state.text.length === 0) {
       return;
     }
-
     this.props.addTodo(this.state.text);
     this.setState({ text: "" });
   };
+
+  handleChangeAll = (e) => {
+    e.preventDefault();
+    this.props.toggleAll();
+  };
   render() {
     console.log("PROPS >>>>>", this.props);
+
     return (
       <form onSubmit={(e) => this.handleSubmit(e)}>
         <div
           className="choose-all"
-          onClick={this.props.handleChangeAll}
-          style={this.props.allin ? { color: "" } : { color: "#737373" }}
+          onClick={this.handleChangeAll}
+          style={this.props.allin ? { color: "#737373" } : { color: "" }}
         >
           <span
-            //style={this.props.items.length ? { color: "" } : { color: "white" }}
+            style={this.props.items.length ? { color: "" } : { color: "white" }}
             className="marker"
           >
             ❯

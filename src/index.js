@@ -9,7 +9,7 @@ import { rootReducer } from "./reducers";
 let store = createStore(rootReducer);
 ReactDOM.render(
   <Provider store={store}>
-    <TodoApp />,
+    <TodoApp />
   </Provider>,
   document.getElementById("root")
 );

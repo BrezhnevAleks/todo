@@ -5,20 +5,20 @@ class FooterMenu extends React.Component {
     return (
       <ul className="footer-menu">
         <button
-          className={this.props.showSwitch === 1 ? "active-button" : ""}
-          onClick={(e) => this.props.handleShow(e, 1)}
+          className={this.props.showFilter === 1 ? "active-button" : ""}
+          onClick={(e) => this.props.handleFilter(e, 1)}
         >
           All
         </button>
         <button
-          className={this.props.showSwitch === 2 ? "active-button" : ""}
-          onClick={(e) => this.props.handleShow(e, 2)}
+          className={this.props.showFilter === 2 ? "active-button" : ""}
+          onClick={(e) => this.props.handleFilter(e, 2)}
         >
           Active
         </button>
         <button
-          className={this.props.showSwitch === 3 ? "active-button" : ""}
-          onClick={(e) => this.props.handleShow(e, 3)}
+          className={this.props.showFilter === 3 ? "active-button" : ""}
+          onClick={(e) => this.props.handleFilter(e, 3)}
         >
           Complited
         </button>
